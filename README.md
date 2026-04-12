@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PetNexus
 
-## Getting Started
+国际化宠物综合服务平台（Next.js 14 + TypeScript + Tailwind + Prisma + PostgreSQL + Redis）。
 
-First, run the development server:
+## 已实现骨架
+
+- `/[lang]/...` 多语言路由（默认 `zh-CN/en/fr`，支持后台新增语言）
+- 数据库存储翻译词条（`translations.values` 为 JSON）
+- 后台语言管理页面：`/[lang]/admin/languages`
+- 翻译 API：新增/查询/导入/导出（JSON/CSV）
+- 宠物模块：列表页 + 地图（React Leaflet + OSM）
+- 商城模块：商品 API + Zustand 购物车 + React Query
+- 狗牌模块：基础设计表单 + 图片上传（Sharp 服务器压缩）
+- 会员模块：订阅计划展示 + Stripe/PayPal 下单 API 骨架
+
+## 技术栈
+
+- 前端：Next.js 14 (App Router), TypeScript, Tailwind CSS, shadcn 风格组件
+- 状态：Zustand, TanStack Query
+- 地图：React Leaflet + OpenStreetMap
+- 后端：Next.js Route Handlers
+- 数据：PostgreSQL + Prisma, Redis（预留）
+- 支付：Stripe, PayPal
+- 图片：Sharp（服务端压缩）
+
+## 启动方式
+
+1. 安装依赖
+
+```bash
+npm install
+```
+
+2. 配置环境变量
+
+```bash
+cp .env.example .env.local
+```
+
+3. 生成 Prisma Client
+
+```bash
+npm run prisma:generate
+```
+
+4. 本地迁移（需要本地 PostgreSQL）
+
+```bash
+npm run prisma:migrate -- --name init
+```
+
+5. 启动开发服务器
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 主要 API
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `GET/POST /api/languages`
+- `GET/POST /api/translations`
+- `GET /api/translations/export?format=json|csv`
+- `POST /api/translations/import`
+- `GET/POST /api/pets`
+- `GET/POST /api/products`
+- `POST /api/images/compress`
+- `POST /api/payments/stripe-intent`
+- `POST /api/payments/paypal-order`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 数据模型
 
-## Learn More
+`prisma/schema.prisma` 包含：
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `Language`
+- `Translation`
+- `Pet`
+- `Product`
+- `Order` / `OrderItem`
+- `DogTagDesign`
+- `MembershipPlan`
+- `UserMembership`

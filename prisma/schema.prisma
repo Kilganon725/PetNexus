@@ -1,0 +1,163 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Language {
+  id          String   @id @default(uuid())
+  code        String   @unique
+  name        String
+  isDefault   Boolean  @default(false)
+  isEnabled   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Translation {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  values    Json
+  context   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  pets      Pet[]
+  orders    Order[]
+  memberships UserMembership[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Pet {
+  id          String   @id @default(uuid())
+  ownerId     String
+  owner       User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  name        Json
+  species     String
+  breed       String?
+  ageMonths   Int?
+  weightKg    Float?
+  imageUrl    String?
+  locationLat Float?
+  locationLng Float?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  sku         String   @unique
+  name        Json
+  description Json?
+  priceCents  Int
+  currency    String   @default("USD")
+  stock       Int      @default(0)
+  imageUrl    String?
+  orderItems  OrderItem[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Order {
+  id             String      @id @default(uuid())
+  userId         String
+  user           User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  status         OrderStatus @default(PENDING)
+  totalCents     Int
+  currency       String      @default("USD")
+  stripeIntentId String?
+  paypalOrderId  String?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  items          OrderItem[]
+}
+
+model OrderItem {
+  id         String   @id @default(uuid())
+  orderId    String
+  order      Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId  String
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Restrict)
+  quantity   Int
+  unitCents  Int
+  createdAt  DateTime @default(now())
+}
+
+model DogTagDesign {
+  id         String   @id @default(uuid())
+  userId     String?
+  shape      String
+  frontText  String?
+  backText   String?
+  fontFamily String?
+  colorHex   String?
+  imageUrl   String?
+  priceCents Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model MembershipPlan {
+  id              String   @id @default(uuid())
+  code            String   @unique
+  name            Json
+  description     Json?
+  interval        PlanInterval
+  priceCents      Int
+  currency        String   @default("USD")
+  stripePriceId   String?
+  paypalPlanId    String?
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  userMemberships UserMembership[]
+}
+
+model UserMembership {
+  id                    String           @id @default(uuid())
+  userId                String
+  user                  User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  planId                String
+  plan                  MembershipPlan   @relation(fields: [planId], references: [id], onDelete: Restrict)
+  provider              PaymentProvider
+  status                MembershipStatus @default(ACTIVE)
+  providerSubscriptionId String?
+  currentPeriodStart    DateTime
+  currentPeriodEnd      DateTime
+  createdAt             DateTime         @default(now())
+  updatedAt             DateTime         @updatedAt
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  FULFILLED
+  REFUNDED
+  CANCELED
+}
+
+enum PlanInterval {
+  MONTHLY
+  YEARLY
+}
+
+enum PaymentProvider {
+  STRIPE
+  PAYPAL
+}
+
+enum MembershipStatus {
+  ACTIVE
+  CANCELED
+  EXPIRED
+  PAST_DUE
+}
