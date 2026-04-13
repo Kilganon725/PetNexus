@@ -24,8 +24,10 @@ export function LanguageSwitcher({
         <Link
           key={language.code}
           href={`/${language.code}${pathWithoutLang === "/" ? "" : pathWithoutLang}`}
-          className={`rounded-md border px-3 py-1 text-sm ${
-            language.code === currentLang ? "bg-primary text-primary-foreground" : "bg-background"
+          className={`rounded-md border px-3 py-1.5 text-sm font-medium transition ${
+            language.code === currentLang
+              ? "border-primary bg-primary text-primary-foreground"
+              : "border-border bg-white/70 text-foreground hover:bg-white"
           }`}
         >
           {language.name}

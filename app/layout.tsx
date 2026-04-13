@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
+import { ParticleBackground } from "@/components/effects/particle-background";
 import { QueryProvider } from "@/providers/query-provider";
 import "./globals.css";
 
@@ -21,7 +22,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
-      <body className="min-h-full font-sans">
+      <body className="relative min-h-full font-sans">
+        <ParticleBackground />
         <QueryProvider>{children}</QueryProvider>
       </body>
     </html>

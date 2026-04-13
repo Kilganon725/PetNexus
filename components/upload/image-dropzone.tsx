@@ -41,7 +41,7 @@ export function ImageDropzone() {
   });
 
   return (
-    <div {...getRootProps()} className="rounded-md border border-dashed p-4">
+    <div {...getRootProps()} className="rounded-md border border-dashed border-border bg-white p-4 shadow-sm">
       <input {...getInputProps()} />
       <div className="flex flex-col gap-2">
         <p className="text-sm">上传图片后会在服务端使用 Sharp 压缩，再进入对象存储。</p>

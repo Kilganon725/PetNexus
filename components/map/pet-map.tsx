@@ -21,7 +21,7 @@ export function PetMap({ pins }: { pins: PetPin[] }) {
   const center = pins.length ? ([pins[0].lat, pins[0].lng] as [number, number]) : ([39.9, 116.4] as [number, number]);
 
   return (
-    <MapContainer center={center} zoom={12} scrollWheelZoom className="h-72 w-full rounded-md border">
+    <MapContainer center={center} zoom={12} scrollWheelZoom className="h-80 w-full rounded-md border border-border/70 shadow-sm">
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

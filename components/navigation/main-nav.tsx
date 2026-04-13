@@ -26,14 +26,14 @@ export function MainNav({
         <Link
           key={item.key}
           href={`/${lang}${item.href}`}
-          className="rounded-md border border-border px-3 py-1 text-sm hover:bg-muted"
+          className="rounded-md border border-transparent bg-white/70 px-3 py-1.5 text-sm font-medium shadow-sm transition hover:border-border hover:bg-white"
         >
           {dictionary[item.key] ?? item.key}
         </Link>
       ))}
       <Link
         href={`/${lang}/admin/languages`}
-        className="rounded-md border border-border px-3 py-1 text-sm hover:bg-muted"
+        className="rounded-md border border-transparent bg-white/70 px-3 py-1.5 text-sm font-medium shadow-sm transition hover:border-border hover:bg-white"
       >
         Admin
       </Link>
