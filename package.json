@@ -2,6 +2,9 @@
   "name": "petnexus",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20 <25"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -19,10 +22,12 @@
     "@sendgrid/mail": "^8.1.5",
     "@stripe/stripe-js": "^7.8.0",
     "@tanstack/react-query": "^5.74.4",
+    "bcryptjs": "^3.0.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "express": "^5.1.0",
     "ioredis": "^5.6.1",
+    "jsonwebtoken": "^9.0.3",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.511.0",
     "next": "14.2.25",
@@ -35,10 +40,11 @@
     "sharp": "^0.34.0",
     "stripe": "^18.0.0",
     "tailwind-merge": "^3.3.0",
-    "zustand": "^5.0.3",
-    "zod": "^3.24.2"
+    "zod": "^3.24.2",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/leaflet": "^1.9.16",
     "@types/node": "^20.17.30",
     "@types/react": "^18.3.20",

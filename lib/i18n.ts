@@ -28,6 +28,11 @@ const fallbackMessages: Record<string, TranslationValues> = {
     en: "Membership",
     fr: "Abonnement",
   },
+  "nav.auth": {
+    "zh-CN": "登录/注册",
+    en: "Sign In / Register",
+    fr: "Connexion / Inscription",
+  },
   "home.title": {
     "zh-CN": "宠物综合服务平台",
     en: "Pet Service Platform",

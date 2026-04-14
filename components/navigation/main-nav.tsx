@@ -11,6 +11,7 @@ const navItems: NavItem[] = [
   { key: "nav.shop", href: "/shop" },
   { key: "nav.designer", href: "/designer" },
   { key: "nav.membership", href: "/membership" },
+  { key: "nav.auth", href: "/auth" },
 ];
 
 export function MainNav({

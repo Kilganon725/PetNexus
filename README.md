@@ -12,6 +12,7 @@
 - 商城模块：商品 API + Zustand 购物车 + React Query
 - 狗牌模块：基础设计表单 + 图片上传（Sharp 服务器压缩）
 - 会员模块：订阅计划展示 + Stripe/PayPal 下单 API 骨架
+- 认证模块：登录、注册、登出、获取当前用户（JWT + HttpOnly Cookie）
 
 ## 技术栈
 
@@ -66,6 +67,10 @@ npm run dev
 - `POST /api/images/compress`
 - `POST /api/payments/stripe-intent`
 - `POST /api/payments/paypal-order`
+- `POST /api/auth/register`
+- `POST /api/auth/login`
+- `POST /api/auth/logout`
+- `GET /api/auth/me`
 
 ## 数据模型
 
@@ -73,6 +78,7 @@ npm run dev
 
 - `Language`
 - `Translation`
+- `User`（包含 `passwordHash`、`lastLoginAt`）
 - `Pet`
 - `Product`
 - `Order` / `OrderItem`
