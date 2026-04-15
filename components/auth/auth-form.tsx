@@ -59,18 +59,18 @@ export function AuthForm() {
   };
 
   return (
-    <div className="grid gap-4 rounded-md border border-border/70 bg-white p-5 shadow-sm">
+    <div className="grid gap-4 rounded-md border border-white/45 bg-white/30 p-5 text-white shadow-sm backdrop-blur-md">
       <div className="flex gap-2">
         <button
           type="button"
-          className={`rounded-md px-3 py-2 text-sm font-semibold ${mode === "login" ? "bg-primary text-primary-foreground" : "border border-border"}`}
+          className={`rounded-md px-3 py-2 text-sm font-semibold ${mode === "login" ? "bg-primary text-primary-foreground" : "border border-white/60 bg-white/10 text-white hover:bg-white/20"}`}
           onClick={() => setMode("login")}
         >
           登录
         </button>
         <button
           type="button"
-          className={`rounded-md px-3 py-2 text-sm font-semibold ${mode === "register" ? "bg-primary text-primary-foreground" : "border border-border"}`}
+          className={`rounded-md px-3 py-2 text-sm font-semibold ${mode === "register" ? "bg-primary text-primary-foreground" : "border border-white/60 bg-white/10 text-white hover:bg-white/20"}`}
           onClick={() => setMode("register")}
         >
           注册
@@ -83,7 +83,7 @@ export function AuthForm() {
             value={name}
             onChange={(event) => setName(event.target.value)}
             placeholder="昵称（可选）"
-            className="rounded-md border border-input px-3 py-2 text-sm"
+            className="rounded-md border border-white/50 bg-white/85 px-3 py-2 text-sm text-black"
           />
         ) : null}
 
@@ -93,7 +93,7 @@ export function AuthForm() {
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           placeholder="邮箱"
-          className="rounded-md border border-input px-3 py-2 text-sm"
+          className="rounded-md border border-white/50 bg-white/85 px-3 py-2 text-sm text-black"
         />
         <input
           type="password"
@@ -101,7 +101,7 @@ export function AuthForm() {
           value={password}
           onChange={(event) => setPassword(event.target.value)}
           placeholder={mode === "register" ? "密码（至少8位）" : "密码"}
-          className="rounded-md border border-input px-3 py-2 text-sm"
+          className="rounded-md border border-white/50 bg-white/85 px-3 py-2 text-sm text-black"
         />
 
         <Button type="submit" disabled={loading}>
@@ -109,11 +109,15 @@ export function AuthForm() {
         </Button>
       </form>
 
-      {error ? <p className="text-sm text-secondary">{error}</p> : null}
+      {error ? <p className="text-sm text-rose-200">{error}</p> : null}
       {user ? (
-        <div className="rounded-md border border-border bg-muted p-3 text-sm">
+        <div className="rounded-md border border-white/50 bg-white/25 p-3 text-sm">
           <p>当前登录：{user.name || user.email}</p>
-          <button type="button" className="mt-2 rounded-md border border-border px-3 py-1.5 text-xs font-semibold" onClick={logout}>
+          <button
+            type="button"
+            className="mt-2 rounded-md border border-white/60 bg-white/15 px-3 py-1.5 text-xs font-semibold hover:bg-white/25"
+            onClick={logout}
+          >
             退出登录
           </button>
         </div>
