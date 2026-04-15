@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 import { LanguageSwitcher } from "@/components/lang-switcher";
 import { MainNav } from "@/components/navigation/main-nav";
-import { getDictionary, getEnabledLanguages } from "@/lib/i18n";
+import { getDictionary } from "@/lib/i18n";
 
 export default async function LangLayout({
   children,
@@ -11,7 +11,6 @@ export default async function LangLayout({
   children: ReactNode;
   params: { lang: string };
 }) {
-  const languages = await getEnabledLanguages();
   const dictionary = await getDictionary(params.lang);
 
   return (
@@ -22,7 +21,7 @@ export default async function LangLayout({
             <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">PetNexus</p>
             <h1 className="text-lg font-semibold">Global Pet Service Platform</h1>
           </div>
-          <LanguageSwitcher currentLang={params.lang} languages={languages} />
+          <LanguageSwitcher currentLang={params.lang} />
         </div>
         <MainNav lang={params.lang} dictionary={dictionary} />
       </header>
