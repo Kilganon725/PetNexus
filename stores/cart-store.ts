@@ -42,9 +42,19 @@ export const useCartStore = create<CartState>()(
         set((state) => ({
           items: state.items.filter((item) => item.productId !== productId),
         })),
+      updateQuantity: (productId, quantity) =>
+        set((state) => ({
+          items: state.items.map((item) =>
+            item.productId === productId && quantity > 0
+              ? { ...item, quantity }
+              : item,
+          ).filter((item) => item.quantity > 0),
+        })),
       clearCart: () => set({ items: [] }),
       totalCents: () =>
         get().items.reduce((sum, item) => sum + item.priceCents * item.quantity, 0),
+      itemCount: () =>
+        get().items.reduce((sum, item) => sum + item.quantity, 0),
     }),
     {
       name: "petnexus-cart",
